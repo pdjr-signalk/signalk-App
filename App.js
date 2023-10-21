@@ -16,6 +16,8 @@
  * permissions and limitations under the License.
  */
 
+const bonjour = require('bonjour')();
+
 const Delta = require('../signalk-libdelta/Delta.js');
 const Notification = require('../signalk-libnotification/Notification.js');
 
@@ -32,6 +34,46 @@ module.exports = class App {
     if (value !== null) value = this.notification.makeNotification(path, value);
     this.delta.clear().addValue(notificationPath, value).commit().clear();
     return((value)?value.id:null);
+  }
+
+  static async findServerAddress(uuid, timeout=5) {
+    var serverAddress = null;
+    return(await new Promise((resolve, reject) => {
+      bonjour.find({ type: 'https' }, (service) => {
+        if (service.txt.self === uuid) serverAddress = "https://" + service.addresses[0] + ":" + service.port;
+      });
+  
+      setTimeout(() => {                                  // wait for 5 seconds, then...
+        if (serverAddress != null) {
+          resolve(serverAddress);
+        } else {
+          bonjour.find({ type: "http" }, (service) => {
+            if (service.txt.self === uuid) serverAddress = "http://" + service.addresses[0] + ":" + service.port;
+          });
+          setTimeout(() => {                              // wait for 5 seconds, then...
+            bonjour.destroy();
+            resolve(serverAddress);                            // destroy bonjour instance
+          }, timeout * 1000);    
+        }
+      }, (timeout * 1000));
+    }).then(() => {
+      return(serverAddress);
+    }));
+  }
+
+  static async getApiVersion(serverAddress) {
+    var apiVersion = null;
+    return(await new Promise((resolve, reject) => {
+      fetch(`${serverAddress}/signalk`, { method: 'GET' }).then((response) => {
+        if (response.status == 200) {
+          response.json().then((json) => {
+            resolve(apiVersion = Object.keys(json.endpoints)[0]);
+          })
+        }
+      })
+    }).then(() => {
+      return(apiVersion);
+    }));
   }
   
 }
