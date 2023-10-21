@@ -1,0 +1,23 @@
+{
+  "name": "signalk-libapp",
+  "version": "1.0.0",
+  "description": "Signal K app support library",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pdjr-signalk/signalk-libapp.git"
+  },
+  "author": "Paul Reeve <preeve_at_pdjr_dot_eu>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/pdjr-signalk/signalk-libapp/issues"
+  },
+  "homepage": "https://github.com/pdjr-signalk/signalk-libapp#readme",
+  "dependencies": {
+    "signalk-libdelta": "file:../signalk-libdelta/signalk-libdelta-1.0.0.tgz",
+    "signalk-libnotification": "file:../signalk-libnotification/signalk-libnotification-1.0.0.tgz"
+  }
+}

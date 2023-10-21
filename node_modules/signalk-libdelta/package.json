@@ -1,0 +1,19 @@
+{
+  "name": "signalk-libdelta",
+  "version": "1.0.0",
+  "description": "Signal K delta support library",
+  "main": "Delta.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pdjr-signalk/signalk-libdelta.git"
+  },
+  "author": "Paul Reeve <preeve_at_pdjr_dot_eu>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/pdjr-signalk/signalk-libdelta/issues"
+  },
+  "homepage": "https://github.com/pdjr-signalk/signalk-libdelta#readme"
+}
