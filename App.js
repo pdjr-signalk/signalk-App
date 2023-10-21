@@ -74,6 +74,7 @@ module.exports = class App {
     }).then(() => {
       return(apiVersion);
     }));
+    
   }
   
 }
