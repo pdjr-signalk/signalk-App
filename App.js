@@ -57,7 +57,9 @@ module.exports = class App {
         }
       }, (timeout * 1000));
     }).then(() => {
-      return(serverAddress);
+      if (serverAddress) {
+        return(serverAddress);
+      } else throw new Error("couldn't get server address");
     }));
   }
 
@@ -72,7 +74,9 @@ module.exports = class App {
         }
       })
     }).then(() => {
-      return(apiVersion);
+      if (apiVersion) {
+        return(apiVersion);
+      } else throw new Error("couldn't get API versiom");
     }));
   }
 
@@ -87,7 +91,9 @@ module.exports = class App {
         }
       })
     }).then(() => {
-      return(authenticationToken);
+      if (authenticationToken) {
+        return(authenticationToken);
+      } else throw new Error("couldn't get authentication token");
     }));
   }
   
