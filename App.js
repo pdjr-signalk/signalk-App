@@ -18,8 +18,8 @@
 
 const bonjour = require('bonjour')();
 
-const Delta = require('signalk-libdelta');
-const Notification = require('signalk-libnotification');
+const Delta = require('./lib/signalk-libdelta/Delta.js');
+const Notification = require('./lib/signalk-libnotification/Notification.js');
 
 module.exports = class App {
 
