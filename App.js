@@ -36,7 +36,7 @@ module.exports = class App {
     return((value)?value.id:null);
   }
 
-  static async findServerAddress(uuid, timeout=5) {
+  async findServerAddress(uuid, timeout=5) {
     var serverAddress = null;
     return(await new Promise((resolve, reject) => {
       bonjour.find({ type: 'https' }, (service) => {
@@ -61,7 +61,7 @@ module.exports = class App {
     }));
   }
 
-  static async getApiVersion(serverAddress) {
+  async getApiVersion(serverAddress) {
     var apiVersion = null;
     return(await new Promise((resolve, reject) => {
       fetch(`${serverAddress}/signalk`, { method: 'GET' }).then((response) => {
@@ -76,7 +76,7 @@ module.exports = class App {
     }));
   }
 
-  static async getAuthenticationToken(serverAddress, apiVersion, username, password) {
+  async getAuthenticationToken(serverAddress, apiVersion, username, password) {
     var authenticationToken = null;
     return(await new Promise((resolve, reject) => {
       fetch(`${serverAddress}/signalk/${apiVersion}/auth/login`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: username, password: password })}).then((response) => {
