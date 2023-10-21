@@ -74,7 +74,21 @@ module.exports = class App {
     }).then(() => {
       return(apiVersion);
     }));
-    
+  }
+
+  static async getAuthenticationToken(serverAddress, apiVersion, username, password) {
+    var authenticationToken = null;
+    return(await new Promise((resolve, reject) => {
+      fetch(`${serverAddress}/signalk/${apiVersion}/auth/login`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: username, password: password })}).then((response) => {
+        if (response.status == 200) {
+          response.json().then((json) => {
+            resolve(authenticationToken = json.token);
+          })
+        }
+      })
+    }).then(() => {
+      return(authenticationToken);
+    }));
   }
   
 }
