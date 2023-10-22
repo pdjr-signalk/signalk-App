@@ -63,20 +63,20 @@ module.exports = class App {
     }));
   }
 
-  async getApiVersion(serverAddress) {
-    var apiVersion = null;
+  async getEndpoints(serverAddress) {
+    var endpoints = null;
     return(await new Promise((resolve, reject) => {
       fetch(`${serverAddress}/signalk`, { method: 'GET' }).then((response) => {
         if (response.status == 200) {
           response.json().then((json) => {
-            resolve(apiVersion = Object.keys(json.endpoints)[0]);
+            resolve(endpoints = json);
           })
         }
       })
     }).then(() => {
-      if (apiVersion) {
-        return(apiVersion);
-      } else throw new Error("couldn't get API versiom");
+      if (endpoints) {
+        return(endpoints);
+      } else throw new Error("couldn't get endpoints");
     }));
   }
 
