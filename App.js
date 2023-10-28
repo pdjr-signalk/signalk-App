@@ -16,8 +16,6 @@
  * permissions and limitations under the License.
  */
 
-const bonjour = require('bonjour')();
-
 const Delta = require('./lib/signalk-libdelta/Delta.js');
 const Notification = require('./lib/signalk-libnotification/Notification.js');
 
@@ -34,67 +32,6 @@ module.exports = class App {
     if (value !== null) value = this.notification.makeNotification(path, value);
     this.delta.clear().addValue(notificationPath, value).commit().clear();
     return((value)?value.id:null);
-  }
-
-  async findServerAddress(uuid, timeout=5) {
-    var serverAddress = null;
-    return(await new Promise((resolve, reject) => {
-      bonjour.find({ type: 'https' }, (service) => {
-        if (service.txt.self === uuid) serverAddress = "https://" + service.addresses[0] + ":" + service.port;
-      });
-  
-      setTimeout(() => {                                  // wait for 5 seconds, then...
-        if (serverAddress != null) {
-          resolve(serverAddress);
-        } else {
-          bonjour.find({ type: "http" }, (service) => {
-            if (service.txt.self === uuid) serverAddress = "http://" + service.addresses[0] + ":" + service.port;
-          });
-          setTimeout(() => {                              // wait for 5 seconds, then...
-            bonjour.destroy();
-            resolve(serverAddress);                            // destroy bonjour instance
-          }, timeout * 1000);    
-        }
-      }, (timeout * 1000));
-    }).then(() => {
-      if (serverAddress) {
-        return(serverAddress);
-      } else throw new Error("couldn't get server address");
-    }));
-  }
-
-  async getEndpoints(serverAddress) {
-    var endpoints = null;
-    return(await new Promise((resolve, reject) => {
-      fetch(`${serverAddress}/signalk`, { method: 'GET' }).then((response) => {
-        if (response.status == 200) {
-          response.json().then((json) => {
-            resolve(endpoints = json);
-          })
-        }
-      })
-    }).then(() => {
-      if (endpoints) {
-        return(endpoints);
-      } else throw new Error("couldn't get endpoints");
-    }));
-  }
-
-  async getAuthenticationToken(serverAddress, apiVersion, username, password) {
-    var authenticationToken = null;
-    return(await new Promise((resolve, reject) => {
-      fetch(`${serverAddress}/signalk/${apiVersion}/auth/login`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: username, password: password })}).then((response) => {
-        if (response.status == 200) {
-          response.json().then((json) => {
-            resolve(authenticationToken = json.token);
-          })
-        }
-      })
-    }).then(() => {
-      if (authenticationToken) {
-        return(authenticationToken);
-      } else throw new Error("couldn't get authentication token");
-    }));
   }
   
 }
