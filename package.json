@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/pdjr-signalk/signalk-libapp/issues"
   },
-  "homepage": "https://github.com/pdjr-signalk/signalk-libapp#readme"
+  "homepage": "https://github.com/pdjr-signalk/signalk-libapp#readme",
+  "dependencies": {
+    "signalk-libdelta": "github:pdjr-signalk/signalk-libdelta",
+    "signalk-libnotification": "github:pdjr-signalk/signalk-libnotification"
+  }
 }
