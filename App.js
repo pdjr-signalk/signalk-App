@@ -16,8 +16,8 @@
  * permissions and limitations under the License.
  */
 
-const Delta = require('./lib/signalk-libdelta/Delta.js');
-const Notification = require('./lib/signalk-libnotification/Notification.js');
+const Delta = require('signalk-libdelta/Delta.js');
+const Notification = require('signalk-libnotification/Notification.js');
 
 module.exports = class App {
 
