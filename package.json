@@ -1,0 +1,22 @@
+{
+  "name": "signalk-libapp",
+  "version": "1.0.0",
+  "description": "Fake Signal K app for testing new ideas.",
+  "main": "App.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pdjr-signalk/signalk-libapp.git"
+  },
+  "author": "Paul Reeve <preeve_at_pdjr_dot_eu>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/pdjr-signalk/signalk-libapp/issues"
+  },
+  "homepage": "https://github.com/pdjr-signalk/signalk-libapp#readme"
+}
