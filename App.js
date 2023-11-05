@@ -30,7 +30,7 @@ module.exports = class App {
   notify(path, value, sourceId) {
     var notificationPath = (path.startsWith("notifications."))?path:("notifications." + path);
     if (value !== null) value = this.notification.makeNotification(path, value);
-    this.delta.clear().addValue(notificationPath, value).commit().clear();
+    this.delta.addValue(notificationPath, value).commit().clear();
     return((value)?value.id:null);
   }
   
