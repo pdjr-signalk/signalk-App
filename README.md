@@ -17,8 +17,8 @@ const App = require('signalk-libapp/App.js');
 // Create an instance of App (put it in a variable if you like)
 plugin.App = new App(app, plugin.id);
 …
-// Use a library function 
-plugin.App.notify(path, value, plugin.id);
+// Use library notify method 
+const notificationId = plugin.App.notify(path, value, plugin.id);
 ```
 
 ## Author
