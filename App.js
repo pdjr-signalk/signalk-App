@@ -24,14 +24,15 @@ module.exports = class App {
   constructor(app, id) {
     this.app = app;
     this.delta = new Delta(app, id);
-    this.notification = new Notification(app);
+
+    Notification.link(app);
   }
 
-  notify(path, value, sourceId) {
+  notify(path, value, sourceId) { 
     var notificationPath = (path.startsWith("notifications."))?path:("notifications." + path);
-    if (value !== null) value = this.notification.makeNotification(path, value);
-    this.delta.addValue(notificationPath, value).commit().clear();
-    return((value)?value.id:null);
+    var notificationValue = (value)?Notification.canonicalise(path, value):value;
+    this.delta.addValue(notificationPath, notificationValue).commit(sourceId).clear();
+    return((notificationValue)?notificationValue.id:null);
   }
   
 }
